@@ -26,11 +26,8 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/main', async (req, res) => {
-
-   // const shortUrlRecords = await ShortUrl.find();
-    const shortUrlRecords = await ShortUrl.find({ ip: req.ip} );
-   // console.log(shortUrlRecords)
-    res.render('index', { shortUrlRecords });
+    const shortUrlRecords = await ShortUrl.find();
+    res.json({ shortUrlRecords });
       
 });
 

@@ -25,7 +25,7 @@ app.get('/', async (req, res) => {
       
 });
 
-app.get('/main', async (req, res) => {
+app.get('/api/main', async (req, res) => {
     const shortUrlRecords = await ShortUrl.find();
     res.json({ shortUrlRecords });
       
@@ -67,24 +67,6 @@ app.get('/:shortId', async (req, res) => {
     targetRecord.save();
 
     res.redirect(targetRecord.full);
-});
-
-app.get('/api', async (req, res) => {
-
-    const shortUrlRecords = await ShortUrl.find();
-    res.json({ shortUrlRecords });
-      
-});
-
-app.get('/all-urls',async(req, res) => {
-try{
-    const shortUrlRecords = await ShortUrl.find();
-    const targetRecord = await ShortUrl.find({ ip: req.ip} );
-   // res.json({ shortUrlRecords });
-    res.render('index')
-} catch(e){
-res.status(404).json({e})
-}
 });
 
 

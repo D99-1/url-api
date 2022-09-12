@@ -68,7 +68,7 @@ try{
     const targetRecord = await ShortUrl.find();
     res.json( targetRecord );
 } catch(e){
-res.status(404).json({e})
+res.status(401).json(e)
 }
 });
 

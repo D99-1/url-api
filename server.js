@@ -53,7 +53,7 @@ app.get('/:user/:shortId', async (req, res) => {
 });
 
 
-app.get('/:user/:shortId', async (req, res) => {
+app.get('/:shortId', async (req, res) => {
     const targetRecord = await ShortUrl.findOne({ short: req.params.shortId} );
     if ( targetRecord === null ) return res.sendStatus(404);
 

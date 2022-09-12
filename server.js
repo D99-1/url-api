@@ -64,11 +64,13 @@ app.get('/:shortId', async (req, res) => {
 });
 
 app.get('/api', async (req, res) => {
-
+try{
     const shortUrlRecords = await ShortUrl.find();
     const targetRecord = await ShortUrl.find({ ip: req.ip} );
     res.json({ shortUrlRecords });
-      
+} catch(e){
+res.status(404).json({e})
+}
 });
 
 app.post("/api/url", async (req, res, next) => {

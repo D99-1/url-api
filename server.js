@@ -66,7 +66,6 @@ app.get('/:shortId', async (req, res) => {
 app.get('/api', async (req, res) => {
 
     const shortUrlRecords = await ShortUrl.find();
-    const targetRecord = await ShortUrl.findOne({ ip: req.ip} );
     res.json({ shortUrlRecords });
       
 });

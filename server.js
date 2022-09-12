@@ -25,7 +25,7 @@ app.get('/', async (req, res) => {
       
 });
 
-app.get('/api/main', async (req, res) => {
+app.get('/api', async (req, res) => {
     const shortUrlRecords = await ShortUrl.find();
     res.json({ shortUrlRecords });
       

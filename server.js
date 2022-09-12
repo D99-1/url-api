@@ -52,6 +52,17 @@ app.get('/:user/:shortId', async (req, res) => {
     res.redirect(targetRecord.full);
 });
 
+
+app.get('/:user/:shortId', async (req, res) => {
+    const targetRecord = await ShortUrl.findOne({ short: req.params.shortId} );
+    if ( targetRecord === null ) return res.sendStatus(404);
+
+    targetRecord.clicks++
+    targetRecord.save();
+
+    res.redirect(targetRecord.full);
+});
+
 app.get('/api', async (req, res) => {
 
     const shortUrlRecords = await ShortUrl.find();

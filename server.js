@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser')
 const ShortUrl = require('./models/short-url.js');
 const validUrl = require('valid-url');
 const app = express();
@@ -14,10 +15,13 @@ mongoose.connect(`mongodb+srv://mango:${process.env.mango}@cluster0.sezq3em.mong
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(cookieParser());
+
 
 
 app.get('/', async (req, res) => {
-
+    res.cookie(`Cookie token name`,`encrypted cookie string Value`);
+    res.send('Operation Cookie Monster Success')
    // const shortUrlRecords = await ShortUrl.find();
     const shortUrlRecords = await ShortUrl.find({ ip: req.ip} );
    // console.log(shortUrlRecords)

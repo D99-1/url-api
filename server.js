@@ -82,13 +82,13 @@ app.post("/api/url", async (req, res, next) => {
     try {
         const {fullUrl} = req.body;
         const urlData = await ShortUrl.create({full: fullUrl, ip: req.ip});
-        res.status(201).json(data: {
+        res.status(201).json({data: {
                 clicks: urlData['clicks'],
                 full: urlData['full'],
                 short: urlData['short'],
                 ip: urlData['ip']
             }
-        );
+                             });
     }
     catch(e) {
         res.status(500).json({error: true, data: [e]});

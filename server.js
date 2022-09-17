@@ -94,6 +94,17 @@ app.post("/api/url", async (req, res, next) => {
     }
 });
 
+app.post("/api/url/shortOnly", async (req, res, next) => {
+    try {
+        const {fullUrl} = req.body;
+        const urlData = await ShortUrl.create({full: fullUrl, ip: req.ip});
+        res.status(201).json(urlData['short']);
+    }
+    catch(e) {
+        res.status(500).json({error: true, data: [e]});
+    }
+});
+
 app.delete("/api/delete", async (req, res, next) => {
     try {
         const { shortId } = req.params;

@@ -12,12 +12,11 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
+res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
-
 app.get('/', async (req, res) => {
  
    // const shortUrlRecords = await ShortUrl.find();
@@ -64,20 +63,30 @@ app.post("/api/url", async (req, res, next) => {
     try {
         const {fullUrl} = req.body;
         const urlData = await ShortUrl.create({full: fullUrl, ip: req.ip});
-        res.status(201).json({
-            error: false,
-            data: {
+        res.status(201).json({data: {
                 clicks: urlData['clicks'],
                 full: urlData['full'],
                 short: urlData['short'],
                 ip: urlData['ip']
             }
-        });
+                             });
     }
     catch(e) {
         res.status(500).json({error: true, data: [e]});
     }
 });
+
+app.post("/api/url/shortOnly", async (req, res, next) => {
+    try {
+        const {fullUrl} = req.body;
+        const urlData = await ShortUrl.create({full: fullUrl, ip: req.ip});
+        res.status(201).json(urlData['short']);
+    }
+    catch(e) {
+        res.status(500).json({error: true, data: [e]});
+    }
+});
+
 app.delete("/api/delete", async (req, res, next) => {
     try {
         const { shortId } = req.params;

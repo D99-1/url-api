@@ -72,7 +72,7 @@ app.post("/api/url", async (req, res, next) => {
                              });
     }
     catch(e) {
-        res.status(500).json({error: true, data: [e]});
+        res.status(500).json({error: true, data: e});
     }
 });
 
